@@ -25,7 +25,7 @@ const navVariants = cva("max-w-none flex", {
       end: "justify-end",
     },
     orientation: {
-      vertical: "flex-col items-start gap-2",
+      vertical: "flex-col items-start gap-2 space-x-0",
       horizontal: "space-x-1",
     },
   },

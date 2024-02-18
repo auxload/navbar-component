@@ -2,7 +2,6 @@
 import { Menu, X } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
 import Navigation from "./Navigation";
-import useToggleNav from "./useToggleNav";
 import { cn } from "@/lib/utils";
 
 const MobileNavigation = () => {
@@ -31,11 +30,6 @@ const MobileNavigation = () => {
         className="h-6 w-6 cursor-pointer md:hidden ml-auto"
       />
       <div>
-        <X
-          className={`${
-            !open && "hidden"
-          } md:hidden cursor-pointer h-7 w-7 z-30 absolute p-0 mt-2 mx-6  right-0`}
-        />
         <Navigation
           orientation={"vertical"}
           className={cn(

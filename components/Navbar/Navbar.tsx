@@ -13,7 +13,7 @@ const Navbar = () => {
       <Wrapper>
         <nav className="flex h-14 w-full items-center ">
           <Branding />
-          <Navigation variant={"start"} className={"hidden md:flex"} />
+          <Navigation variant={"center"} className={"hidden md:flex"} />
           <Button size="sm" className="ml-6 hidden md:inline-flex ">
             Contact
           </Button>
