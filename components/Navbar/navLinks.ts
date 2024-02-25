@@ -1,40 +1,42 @@
-type Link = {
+type link = { title: string; href: string; description?: string };
+interface services {
   id: number;
-  label: string;
+  title: string;
   path?: string;
-};
-
-interface navLinks extends Link {
-  children?: navLinks[];
+  children?: link[];
 }
-
-export const navLinks: navLinks[] = [
+export const services: services[] = [
   {
     id: 1,
-    label: "Documentation",
-    path: "/docs",
+    title: "Acasa",
+    path: "/",
   },
   {
     id: 2,
-    label: "Components",
+    title: "Despre",
+    path: "/despre-noi",
+  },
+  {
+    id: 3,
+    title: "Servicii",
     children: [
-      {
-        id: 21,
-        label: "Servicii si pachete turistice",
-        path: "/servicii",
-      },
-      {
-        id: 22,
-        label: "Alte Servicii si pachete turistice",
-        path: "/alte-servicii",
-        children: [
-          {
-            id: 211,
-            label: "Servicii si pachete turistice",
-            path: "/servicii",
-          },
-        ],
-      },
+      { title: "Servicii pachete turistice", href: "/d" },
+      { title: "Servicii modelat", href: "/d" },
+      { title: "Servicii montat panouri solare", href: "/d" },
     ],
+  },
+  {
+    id: 4,
+    title: "Produse",
+    children: [
+      { title: "Sug pula pe 50 de bani", href: "/d" },
+      { title: "Video Chat", href: "/d" },
+      { title: "Porno", href: "/d" },
+    ],
+  },
+  {
+    id: 5,
+    title: "Contact",
+    path: "/contact",
   },
 ];
