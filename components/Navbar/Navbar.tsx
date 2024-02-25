@@ -9,9 +9,9 @@ const Navbar = () => {
   return (
     <header className="border-b">
       <Wrapper>
-        <div className="flex  w-full items-start ">
+        <div className="flex  w-full  justify-between md:justify-normal">
           <Branding />
-          <Navigation className="hidden md:flex"/>
+          <Navigation className="hidden md:flex flex-1"/>
           <MobileNavigation />
         </div>
       </Wrapper>

@@ -23,40 +23,14 @@ import {
 
 const components: { title: string; href: string; description?: string }[] = [
   {
-    title: "Alert Dialog",
+    title: "Servicii Montare Panouri Solare",
     href: "/docs/primitives/alert-dialog",
-    description:
-      "A modal dialog that interrupts the user with important content and expects a response.",
   },
   {
-    title: "Hover Card",
+    title: "Alte servicii",
     href: "/docs/primitives/hover-card",
-    description:
-      "For sighted users to preview content available behind a link.",
   },
-  {
-    title: "Progress",
-    href: "/docs/primitives/progress",
-    description:
-      "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
-  },
-  {
-    title: "Scroll-area",
-    href: "/docs/primitives/scroll-area",
-    description: "Visually or semantically separates content.",
-  },
-  {
-    title: "Tabs",
-    href: "/docs/primitives/tabs",
-    description:
-      "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
-  },
-  {
-    title: "Tooltip",
-    href: "/docs/primitives/tooltip",
-    description:
-      "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
-  },
+  
 ];
 
 export default function Navigation({
@@ -67,9 +41,9 @@ export default function Navigation({
   className?: string;
 }) {
   return (
-    <NavigationMenu orientation="vertical" className={className}>
+    <NavigationMenu  className={cn(" ",className)}>
       <NavigationMenuList
-        className={`${mobile ? "flex items-start flex-col space-x-0" : ""}`}
+        className={`${mobile ? "flex  items-start flex-col space-x-0" : ""}  max-w-none  w-full`}
       >
         <NavigationMenuItem>
           <Link href="/docs" legacyBehavior passHref>
@@ -81,15 +55,15 @@ export default function Navigation({
 
         {mobile ? (
           <NavigationMenuItem>
-            <Accordion type="single" collapsible className="">
+            <Accordion type="single" collapsible className="min-w-[300px]">
               <AccordionItem value="item-1">
                 <AccordionTrigger
                   className={cn("", navigationMenuTriggerStyle())}
                 >
                   Components
                 </AccordionTrigger>
-                <AccordionContent>
-                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+                <AccordionContent className="">
+                  <ul className="grid w-full gap-3 p-4 md:w-[500px]  ">
                     {components.map((component) => (
                       <ListItem
                         key={component.title}
@@ -108,7 +82,7 @@ export default function Navigation({
           <NavigationMenuItem>
             <NavigationMenuTrigger>Components</NavigationMenuTrigger>
             <NavigationMenuContent>
-              <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+              <ul className="grid w-[300px] gap-3 p-4 md:w-[400px]   ">
                 {components.map((component) => (
                   <ListItem
                     key={component.title}
@@ -150,10 +124,7 @@ const ListItem = React.forwardRef<
           )}
           {...props}
         >
-          <div className="text-sm font-medium leading-none">{title}</div>
-          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-            {children}
-          </p>
+          <div className=" text-sm font-medium leading-none">{title}</div>
         </a>
       </NavigationMenuLink>
     </li>

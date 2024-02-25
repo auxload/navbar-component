@@ -15,12 +15,16 @@ import Navigation from "./Navigation";
 
 const MobileNavigation = () => {
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger><Menu/></DropdownMenuTrigger>
-      <DropdownMenuContent>
-       <Navigation mobile/>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <div className="md:hidden">
+      <DropdownMenu>
+        <DropdownMenuTrigger >
+          <Menu />
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <Navigation mobile />
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </div>
   );
 };
 
