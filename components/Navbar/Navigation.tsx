@@ -1,10 +1,18 @@
 "use client";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
-import React from "react";
+import * as React from "react";
+import Link from "next/link";
+
+import { cn } from "@/lib/utils";
 import {
   NavigationMenu,
   NavigationMenuContent,
-  NavigationMenuIndicator,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
@@ -12,57 +20,143 @@ import {
   NavigationMenuViewport,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-import Link from "next/link";
-import { cva } from "class-variance-authority";
-import { cn } from "@/lib/utils";
-import { ClassProp } from "class-variance-authority/types";
 
-const navVariants = cva("max-w-none flex", {
-  variants: {
-    variant: {
-      start: "justify-start",
-      center: "justify-center",
-      end: "justify-end",
-    },
-    orientation: {
-      vertical: "flex-col items-start gap-2 space-x-0",
-      horizontal: "space-x-1",
-    },
+const components: { title: string; href: string; description?: string }[] = [
+  {
+    title: "Alert Dialog",
+    href: "/docs/primitives/alert-dialog",
+    description:
+      "A modal dialog that interrupts the user with important content and expects a response.",
   },
-  defaultVariants: {
-    variant: "center",
-    orientation: "horizontal",
+  {
+    title: "Hover Card",
+    href: "/docs/primitives/hover-card",
+    description:
+      "For sighted users to preview content available behind a link.",
   },
-});
-
-type NavigationProp = {
-  variant?: "start" | "end" | "center" | null | undefined;
-  orientation?: "horizontal" | "vertical" | null | undefined;
-  className?: string;
-};
-
-const navLinks = [
-  { id: 1, path: "/", label: "Home" },
-  { id: 2, path: "/about", label: "About" },
-  { id: 3, path: "/contact", label: "Contact" },
+  {
+    title: "Progress",
+    href: "/docs/primitives/progress",
+    description:
+      "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
+  },
+  {
+    title: "Scroll-area",
+    href: "/docs/primitives/scroll-area",
+    description: "Visually or semantically separates content.",
+  },
+  {
+    title: "Tabs",
+    href: "/docs/primitives/tabs",
+    description:
+      "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
+  },
+  {
+    title: "Tooltip",
+    href: "/docs/primitives/tooltip",
+    description:
+      "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
+  },
 ];
 
-const Navigation = ({ variant, orientation, className }: NavigationProp) => {
+export default function Navigation({
+  mobile,
+  className,
+}: {
+  mobile?: boolean | undefined;
+  className?: string;
+}) {
   return (
-    <NavigationMenu className={cn(navVariants({ variant }), className)}>
-      <NavigationMenuList className={cn(navVariants({ orientation }))}>
-        {navLinks.map((link) => (
-          <NavigationMenuItem key={link.id}>
-            <Link href={link.path} legacyBehavior passHref>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                {link.label}
-              </NavigationMenuLink>
-            </Link>
+    <NavigationMenu orientation="vertical" className={className}>
+      <NavigationMenuList
+        className={`${mobile ? "flex items-start flex-col space-x-0" : ""}`}
+      >
+        <NavigationMenuItem>
+          <Link href="/docs" legacyBehavior passHref>
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              Documentation
+            </NavigationMenuLink>
+          </Link>
+        </NavigationMenuItem>
+
+        {mobile ? (
+          <NavigationMenuItem>
+            <Accordion type="single" collapsible className="">
+              <AccordionItem value="item-1">
+                <AccordionTrigger
+                  className={cn("", navigationMenuTriggerStyle())}
+                >
+                  Components
+                </AccordionTrigger>
+                <AccordionContent>
+                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+                    {components.map((component) => (
+                      <ListItem
+                        key={component.title}
+                        title={component.title}
+                        href={component.href}
+                      >
+                        {component.description}
+                      </ListItem>
+                    ))}
+                  </ul>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
           </NavigationMenuItem>
-        ))}
+        ) : (
+          <NavigationMenuItem>
+            <NavigationMenuTrigger>Components</NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+                {components.map((component) => (
+                  <ListItem
+                    key={component.title}
+                    title={component.title}
+                    href={component.href}
+                  >
+                    {component.description}
+                  </ListItem>
+                ))}
+              </ul>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+        )}
+
+        <NavigationMenuItem>
+          <Link href="/docs" legacyBehavior passHref>
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              Contact
+            </NavigationMenuLink>
+          </Link>
+        </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>
   );
-};
+}
 
-export default Navigation;
+const ListItem = React.forwardRef<
+  React.ElementRef<"a">,
+  React.ComponentPropsWithoutRef<"a">
+>(({ className, title, children, ...props }, ref) => {
+  return (
+    <li>
+      <NavigationMenuLink asChild>
+        <a
+          ref={ref}
+          className={cn(
+            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+            className
+          )}
+          {...props}
+        >
+          <div className="text-sm font-medium leading-none">{title}</div>
+          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+            {children}
+          </p>
+        </a>
+      </NavigationMenuLink>
+    </li>
+  );
+});
+ListItem.displayName = "ListItem";

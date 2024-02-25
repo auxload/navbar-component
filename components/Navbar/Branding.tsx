@@ -4,7 +4,7 @@ import React from "react";
 
 const Branding = () => {
   return (
-    <Link className="mr-6" href="#">
+    <Link className="mr-6 mt-2" href="#">
       <MountainIcon className="h-6 w-6" />
       <span className="sr-only">Acme Inc</span>
     </Link>
